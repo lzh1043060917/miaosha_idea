@@ -11,18 +11,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cfc1543f-7b34-4457-9362-ffdc24038f9b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/imooc/miaosha/util/MD5Util.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/$CACHE_FILE$" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/checkstyle-idea.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/imooc/miaosha/controller/LoginController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/imooc/miaosha/dao/MiaoshaUserDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/imooc/miaosha/domain/MiaoshaUser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/imooc/miaosha/service/MiaoshaUserService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/imooc/miaosha/util/ValidatorUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/imooc/miaosha/vo/LoginVo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/imooc/miaosha/MainApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/imooc/miaosha/MainApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/imooc/miaosha/dao/UserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/imooc/miaosha/dao/UserDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/imooc/miaosha/util/MD5Util.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/imooc/miaosha/util/MD5Util.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,6 +40,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MavenImportPreferences">
@@ -57,7 +61,9 @@
     </option>
   </component>
   <component name="ProjectId" id="20Lvekzjgm3vdFPCstrLdl4a0V9" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -69,15 +75,16 @@
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
-    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
-  <component name="RunManager" selected="Application.MD5Util">
+  <component name="RunManager" selected="Spring Boot.MainApplication">
     <configuration name="MD5Util" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.imooc.miaosha.util.MD5Util" />
       <module name="miaosha_idea" />
@@ -106,8 +113,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.MD5Util" />
         <item itemvalue="Spring Boot.MainApplication" />
+        <item itemvalue="Application.MD5Util" />
       </list>
     </recent_temporary>
   </component>
@@ -123,7 +130,8 @@
       <updated>1635836779443</updated>
       <workItem from="1635836783276" duration="6118000" />
       <workItem from="1635897377909" duration="14880000" />
-      <workItem from="1635983452623" duration="2123000" />
+      <workItem from="1635983452623" duration="3999000" />
+      <workItem from="1635988714788" duration="4654000" />
     </task>
     <servers />
   </component>
@@ -140,8 +148,13 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="213" y="25" key="#Project_Structure" timestamp="1635988565587">
+      <screen x="0" y="25" width="1440" height="793" />
+    </state>
+    <state x="213" y="25" key="#Project_Structure/0.25.1440.793@0.25.1440.793" timestamp="1635988565587" />
     <state x="507" y="173" key="#com.intellij.ide.util.MemberChooser" timestamp="1635922755893">
       <screen x="0" y="25" width="1440" height="793" />
     </state>
@@ -154,42 +167,46 @@
       <screen x="0" y="25" width="1440" height="793" />
     </state>
     <state x="513" y="172" key="Github.UntrackedFilesDialog/0.25.1440.793@0.25.1440.793" timestamp="1635927976782" />
-    <state width="1358" height="173" key="GridCell.Tab.0.bottom" timestamp="1635985430535">
+    <state width="1358" height="173" key="GridCell.Tab.0.bottom" timestamp="1635990852262">
       <screen x="0" y="25" width="1440" height="793" />
     </state>
-    <state width="1358" height="173" key="GridCell.Tab.0.bottom/0.25.1440.793@0.25.1440.793" timestamp="1635985430535" />
-    <state width="1358" height="173" key="GridCell.Tab.0.center" timestamp="1635985430534">
+    <state width="1358" height="173" key="GridCell.Tab.0.bottom/0.25.1440.793@0.25.1440.793" timestamp="1635990852262" />
+    <state width="1358" height="173" key="GridCell.Tab.0.center" timestamp="1635990852261">
       <screen x="0" y="25" width="1440" height="793" />
     </state>
-    <state width="1358" height="173" key="GridCell.Tab.0.center/0.25.1440.793@0.25.1440.793" timestamp="1635985430534" />
-    <state width="1358" height="173" key="GridCell.Tab.0.left" timestamp="1635985430533">
+    <state width="1358" height="173" key="GridCell.Tab.0.center/0.25.1440.793@0.25.1440.793" timestamp="1635990852261" />
+    <state width="1358" height="173" key="GridCell.Tab.0.left" timestamp="1635990852261">
       <screen x="0" y="25" width="1440" height="793" />
     </state>
-    <state width="1358" height="173" key="GridCell.Tab.0.left/0.25.1440.793@0.25.1440.793" timestamp="1635985430533" />
-    <state width="1358" height="173" key="GridCell.Tab.0.right" timestamp="1635985430535">
+    <state width="1358" height="173" key="GridCell.Tab.0.left/0.25.1440.793@0.25.1440.793" timestamp="1635990852261" />
+    <state width="1358" height="173" key="GridCell.Tab.0.right" timestamp="1635990852262">
       <screen x="0" y="25" width="1440" height="793" />
     </state>
-    <state width="1358" height="173" key="GridCell.Tab.0.right/0.25.1440.793@0.25.1440.793" timestamp="1635985430535" />
-    <state width="1358" height="173" key="GridCell.Tab.1.bottom" timestamp="1635928407252">
+    <state width="1358" height="173" key="GridCell.Tab.0.right/0.25.1440.793@0.25.1440.793" timestamp="1635990852262" />
+    <state width="1358" height="173" key="GridCell.Tab.1.bottom" timestamp="1635990852264">
       <screen x="0" y="25" width="1440" height="793" />
     </state>
-    <state width="1358" height="173" key="GridCell.Tab.1.bottom/0.25.1440.793@0.25.1440.793" timestamp="1635928407252" />
-    <state width="1358" height="173" key="GridCell.Tab.1.center" timestamp="1635928407252">
+    <state width="1358" height="173" key="GridCell.Tab.1.bottom/0.25.1440.793@0.25.1440.793" timestamp="1635990852264" />
+    <state width="1358" height="173" key="GridCell.Tab.1.center" timestamp="1635990852263">
       <screen x="0" y="25" width="1440" height="793" />
     </state>
-    <state width="1358" height="173" key="GridCell.Tab.1.center/0.25.1440.793@0.25.1440.793" timestamp="1635928407252" />
-    <state width="1358" height="173" key="GridCell.Tab.1.left" timestamp="1635928407252">
+    <state width="1358" height="173" key="GridCell.Tab.1.center/0.25.1440.793@0.25.1440.793" timestamp="1635990852263" />
+    <state width="1358" height="173" key="GridCell.Tab.1.left" timestamp="1635990852263">
       <screen x="0" y="25" width="1440" height="793" />
     </state>
-    <state width="1358" height="173" key="GridCell.Tab.1.left/0.25.1440.793@0.25.1440.793" timestamp="1635928407252" />
-    <state width="1358" height="173" key="GridCell.Tab.1.right" timestamp="1635928407252">
+    <state width="1358" height="173" key="GridCell.Tab.1.left/0.25.1440.793@0.25.1440.793" timestamp="1635990852263" />
+    <state width="1358" height="173" key="GridCell.Tab.1.right" timestamp="1635990852263">
       <screen x="0" y="25" width="1440" height="793" />
     </state>
-    <state width="1358" height="173" key="GridCell.Tab.1.right/0.25.1440.793@0.25.1440.793" timestamp="1635928407252" />
-    <state x="244" y="25" key="SettingsEditor" timestamp="1635840869937">
+    <state width="1358" height="173" key="GridCell.Tab.1.right/0.25.1440.793@0.25.1440.793" timestamp="1635990852263" />
+    <state x="244" y="25" key="SettingsEditor" timestamp="1635988720103">
       <screen x="0" y="25" width="1440" height="793" />
     </state>
-    <state x="244" y="25" key="SettingsEditor/0.25.1440.793@0.25.1440.793" timestamp="1635840869937" />
+    <state x="244" y="25" key="SettingsEditor/0.25.1440.793@0.25.1440.793" timestamp="1635988720103" />
+    <state x="325" y="200" key="Vcs.Push.Dialog.v2" timestamp="1635985924183">
+      <screen x="0" y="25" width="1440" height="793" />
+    </state>
+    <state x="325" y="200" key="Vcs.Push.Dialog.v2/0.25.1440.793@0.25.1440.793" timestamp="1635985924183" />
     <state x="360" y="142" width="670" height="676" key="search.everywhere.popup" timestamp="1635985484376">
       <screen x="0" y="25" width="1440" height="793" />
     </state>

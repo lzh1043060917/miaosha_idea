@@ -96,14 +96,15 @@
             success:function(data){
                 <!-- 关闭loding框 -->
                 layer.closeAll();
-                console.log(data)
+                // console.log(data)
 
-                //if(data.code == 0){
-                    //layer.msg("成功");
-                    //window.location.href="/goods/to_list";
-                //}else{
-                    //layer.msg(data.msg);
-                //}
+                if(data.code == 0){
+                    layer.msg("成功");
+                    // 登陆之后跳转到页面
+                    window.location.href="/goods/to_list";
+                }else{
+                    layer.msg(data.msg);
+                }
             },
             error:function(){
                 layer.closeAll();

@@ -51,9 +51,10 @@ public class CodeMsg {
     public void setMsg(String msg) {
         this.msg = msg;
     }
-
+    // 参数是Object数组
     public CodeMsg fillArgs(Object... args) {
         int code = this.code;
+        // 把原始的参数拼接上message
         String message = String.format(this.msg, args);
         return new CodeMsg(code, message);
     }

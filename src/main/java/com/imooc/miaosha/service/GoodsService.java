@@ -1,0 +1,24 @@
+package com.imooc.miaosha.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.imooc.miaosha.dao.GoodsDao;
+import com.imooc.miaosha.vo.GoodsVo;
+
+@Service
+public class GoodsService {
+    @Autowired
+    private GoodsDao goodsDao;
+
+    public List<GoodsVo> listGoodsVo() {
+        return goodsDao.listGoodsVo();
+    }
+
+    public GoodsVo getGoodsVoByGoodsId(long goodsId) {
+        return goodsDao.getGoodsVoByGoodsId(goodsId);
+    }
+
+}

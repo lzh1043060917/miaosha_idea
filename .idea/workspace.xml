@@ -11,10 +11,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cfc1543f-7b34-4457-9362-ffdc24038f9b" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/miaosha_idea.iml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,7 +32,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="localDevelop" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -109,6 +106,9 @@
       <list>
         <item itemvalue="Spring Boot.MainApplication" />
         <item itemvalue="Application.MD5Util" />
+        <item itemvalue="Spring Boot.MainApplication" />
+        <item itemvalue="Application.MD5Util" />
+        <item itemvalue="Spring Boot.MainApplication" />
       </list>
     </recent_temporary>
   </component>
@@ -129,6 +129,7 @@
       <workItem from="1636071693512" duration="5872000" />
       <workItem from="1636084065356" duration="6780000" />
       <workItem from="1636329134485" duration="12346000" />
+      <workItem from="1636352207393" duration="695000" />
     </task>
     <servers />
   </component>
@@ -242,10 +243,10 @@
       <screen x="0" y="25" width="1440" height="793" />
     </state>
     <state x="244" y="25" key="SettingsEditor/0.25.1440.793@0.25.1440.793" timestamp="1636083091297" />
-    <state x="325" y="200" key="Vcs.Push.Dialog.v2" timestamp="1636351955082">
+    <state x="325" y="200" key="Vcs.Push.Dialog.v2" timestamp="1636352635645">
       <screen x="0" y="25" width="1440" height="793" />
     </state>
-    <state x="325" y="200" key="Vcs.Push.Dialog.v2/0.25.1440.793@0.25.1440.793" timestamp="1636351955082" />
+    <state x="325" y="200" key="Vcs.Push.Dialog.v2/0.25.1440.793@0.25.1440.793" timestamp="1636352635645" />
     <state x="501" y="131" width="984" height="691" key="dock-window-1" timestamp="1636340008723">
       <screen x="0" y="25" width="1440" height="793" />
     </state>

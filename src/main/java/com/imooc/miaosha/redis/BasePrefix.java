@@ -10,7 +10,7 @@ public abstract class BasePrefix implements KeyPrefix {
         this.expireSeconds = expireSeconds;
         this.prefix = prefix;
     }
-
+    // 1
     public BasePrefix(String prefix) { //0代表永不过期
         this(0, prefix);
     }

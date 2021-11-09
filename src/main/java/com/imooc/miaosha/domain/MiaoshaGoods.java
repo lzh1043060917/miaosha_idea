@@ -5,7 +5,7 @@ import java.util.Date;
 import lombok.Data;
 
 @Data
-public class MIaoshaGoods {
+public class MiaoshaGoods {
     private Long id;
     private Long goodsId;
     private Integer stockCount;

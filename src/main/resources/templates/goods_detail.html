@@ -52,6 +52,7 @@
             <td>秒杀开始时间</td>
             <td th:text="${#dates.format(goods.startDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
             <td id="miaoshaTip">
+                <!-- 搞一个隐藏域，临时保存这个remainSeconds，否则秒杀进行中和结束时时没这个值 -->
                 <input type="hidden" id="remainSeconds" th:value="${remainSeconds}" />
                 <span th:if="${miaoshaStatus eq 0}">秒杀倒计时：<span id="countDown" th:text="${remainSeconds}"></span>秒</span>
                 <span th:if="${miaoshaStatus eq 1}">秒杀进行中</span>
@@ -79,4 +80,39 @@
     </table>
 </div>
 </body>
+<script>
+    $(function(){
+        countDown();
+    });
+
+    function countDown(){
+        // 拿到剩余时间
+        var remainSeconds = $("#remainSeconds").val();
+        var timeout;
+        if(remainSeconds > 0){//秒杀还没开始，倒计时
+            $("#buyButton").attr("disabled", true);
+            // 一秒钟之后回调函数，剪掉时间
+            timeout = setTimeout(function(){
+                // 倒计时，改countDown的text
+                $("#countDown").text(remainSeconds - 1);
+                // 为了保持一致，隐藏域的数据也减一
+                $("#remainSeconds").val(remainSeconds - 1);
+                // 是倒计时插件，循环起来
+                countDown();
+                // 回调时间，一秒钟
+            },1000);
+        }else if(remainSeconds == 0){//秒杀进行中
+            $("#buyButton").attr("disabled", false);
+            if(timeout){
+                clearTimeout(timeout);
+            }
+            $("#miaoshaTip").html("秒杀进行中");
+        }else{//秒杀已经结束
+            // 不让点按钮
+            $("#buyButton").attr("disabled", true);
+            $("#miaoshaTip").html("秒杀已经结束");
+        }
+    }
+
+</script>
 </html>

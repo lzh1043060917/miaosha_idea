@@ -46,9 +46,10 @@ public class GoodsController {
         String token = StringUtils.isEmpty(paramToken) ? cookieToken : paramToken;
         MiaoshaUser user = userService.getByToken(response, token);
         model.addAttribute("user", user);*/
+        /*
         if (user == null) {
             return "login";
-        }
+        }*/
         model.addAttribute("user", user);
         List<GoodsVo>  goodsList = goodsService.listGoodsVo();
         model.addAttribute("goodsList", goodsList);

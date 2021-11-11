@@ -27,7 +27,11 @@ public class GoodsController {
 
     @Autowired
     private GoodsService goodsService;
-
+    /*
+    * 优化前：
+    * QPS:2896.536
+    * 5000 * 10
+    * */
     @RequestMapping(value="/to_list")
     public String list(Model model,
             // @CookieValue(value = MiaoshaUserService.COOKI_NAME_TOKEN, required = false) String cookieToken,

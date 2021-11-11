@@ -8,7 +8,7 @@
   <artifactId>miaosha_idea</artifactId>
   <version>1.0-SNAPSHOT</version>
 
-  <packaging>war</packaging><!-- 默认是jar的打包方式 -->
+  <packaging>jar</packaging><!-- 默认是jar的打包方式 -->
 
   <name>miaosha_idea</name>
   <!-- FIXME change it to the project's website -->
@@ -35,11 +35,12 @@
     </dependency>
 
     <!-- provided意思是编译时依赖 -->
+    <!--
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-tomcat</artifactId>
       <scope>provided</scope>
-    </dependency>
+    </dependency> -->
 
     <dependency>
       <groupId>org.mybatis.spring.boot</groupId>
@@ -116,53 +117,15 @@
   </dependencies>
 
   <build>
-    <finalName>${project.artifactId}</finalName>
-    <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
+    <!-- pluginManagement是表示插件声明，即你在项目中的pluginManagement下声明了插件，
+    Maven不会加载该插件，pluginManagement声明可以被继承。 -->
       <plugins>
-        <!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
-        <plugin>
-          <artifactId>maven-clean-plugin</artifactId>
-          <version>3.1.0</version>
-        </plugin>
-        <!-- default lifecycle, jar packaging: see https://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_jar_packaging -->
-        <plugin>
-          <artifactId>maven-resources-plugin</artifactId>
-          <version>3.0.2</version>
-        </plugin>
-        <plugin>
-          <artifactId>maven-compiler-plugin</artifactId>
-          <version>3.8.0</version>
-        </plugin>
-        <plugin>
-          <artifactId>maven-surefire-plugin</artifactId>
-          <version>2.22.1</version>
-        </plugin>
-        <plugin>
-          <artifactId>maven-jar-plugin</artifactId>
-          <version>3.0.2</version>
-        </plugin>
-        <plugin>
-          <artifactId>maven-install-plugin</artifactId>
-          <version>2.5.2</version>
-        </plugin>
-        <plugin>
-          <artifactId>maven-deploy-plugin</artifactId>
-          <version>2.8.2</version>
-        </plugin>
-        <!-- site lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#site_Lifecycle -->
-        <plugin>
-          <artifactId>maven-site-plugin</artifactId>
-          <version>3.7.1</version>
-        </plugin>
-        <plugin>
-          <artifactId>maven-project-info-reports-plugin</artifactId>
-          <version>3.0.0</version>
-        </plugin>
+
         <plugin>
           <groupId>org.springframework.boot</groupId>
           <artifactId>spring-boot-maven-plugin</artifactId>
         </plugin>
       </plugins>
-    </pluginManagement>
+
   </build>
 </project>

@@ -11,16 +11,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cfc1543f-7b34-4457-9362-ffdc24038f9b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_commons_commons_collections4_4_4.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/imooc/miaosha/config/DruidConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/imooc/miaosha/controller/UserController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/artifacts/miaosha_idea_war.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/artifacts/miaosha_idea_war_exploded.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/imooc/miaosha/util/DBUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/imooc/miaosha/util/UserUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/imooc/miaosha/MainApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/imooc/miaosha/MainApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/imooc/miaosha/config/UserArgumentResolver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/imooc/miaosha/config/UserArgumentResolver.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/imooc/miaosha/controller/GoodsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/imooc/miaosha/controller/GoodsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/imooc/miaosha/redis/RedisPoolFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/imooc/miaosha/redis/RedisPoolFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/imooc/miaosha/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/imooc/miaosha/controller/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/imooc/miaosha/controller/MiaoshaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/imooc/miaosha/controller/MiaoshaController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/imooc/miaosha/service/MiaoshaUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/imooc/miaosha/service/MiaoshaUserService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,6 +78,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="TERMINAL_CUSTOM_COMMANDS_GOT_IT" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources/templates" />
@@ -106,6 +110,19 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="UserUtil" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.imooc.miaosha.util.UserUtil" />
+      <module name="miaosha_idea" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.imooc.miaosha.util.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="MainApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <module name="miaosha_idea" />
       <extension name="coverage">
@@ -121,11 +138,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.UserUtil" />
         <item itemvalue="Spring Boot.MainApplication" />
         <item itemvalue="Application.MD5Util" />
         <item itemvalue="Spring Boot.MainApplication" />
         <item itemvalue="Application.MD5Util" />
-        <item itemvalue="Spring Boot.MainApplication" />
       </list>
     </recent_temporary>
   </component>
@@ -148,7 +165,10 @@
       <workItem from="1636329134485" duration="12346000" />
       <workItem from="1636352207393" duration="695000" />
       <workItem from="1636416051125" duration="10754000" />
-      <workItem from="1636500904090" duration="9400000" />
+      <workItem from="1636500904090" duration="9722000" />
+      <workItem from="1636537166517" duration="217000" />
+      <workItem from="1636542246937" duration="304000" />
+      <workItem from="1636588525359" duration="5428000" />
     </task>
     <servers />
   </component>
@@ -222,54 +242,54 @@
       <screen x="0" y="25" width="1440" height="793" />
     </state>
     <state x="513" y="172" key="Github.UntrackedFilesDialog/0.25.1440.793@0.25.1440.793" timestamp="1635927976782" />
-    <state width="1358" height="173" key="GridCell.Tab.0.bottom" timestamp="1636532044961">
+    <state width="1358" height="173" key="GridCell.Tab.0.bottom" timestamp="1636596699058">
       <screen x="0" y="25" width="1440" height="793" />
     </state>
-    <state width="1358" height="173" key="GridCell.Tab.0.bottom/0.25.1440.793@0.25.1440.793" timestamp="1636532044961" />
-    <state width="1358" height="173" key="GridCell.Tab.0.center" timestamp="1636532044960">
+    <state width="1358" height="173" key="GridCell.Tab.0.bottom/0.25.1440.793@0.25.1440.793" timestamp="1636596699058" />
+    <state width="1358" height="173" key="GridCell.Tab.0.center" timestamp="1636596699057">
       <screen x="0" y="25" width="1440" height="793" />
     </state>
-    <state width="1358" height="173" key="GridCell.Tab.0.center/0.25.1440.793@0.25.1440.793" timestamp="1636532044960" />
-    <state width="1358" height="173" key="GridCell.Tab.0.left" timestamp="1636532044959">
+    <state width="1358" height="173" key="GridCell.Tab.0.center/0.25.1440.793@0.25.1440.793" timestamp="1636596699057" />
+    <state width="1358" height="173" key="GridCell.Tab.0.left" timestamp="1636596699057">
       <screen x="0" y="25" width="1440" height="793" />
     </state>
-    <state width="1358" height="173" key="GridCell.Tab.0.left/0.25.1440.793@0.25.1440.793" timestamp="1636532044959" />
-    <state width="1358" height="173" key="GridCell.Tab.0.right" timestamp="1636532044961">
+    <state width="1358" height="173" key="GridCell.Tab.0.left/0.25.1440.793@0.25.1440.793" timestamp="1636596699057" />
+    <state width="1358" height="173" key="GridCell.Tab.0.right" timestamp="1636596699058">
       <screen x="0" y="25" width="1440" height="793" />
     </state>
-    <state width="1358" height="173" key="GridCell.Tab.0.right/0.25.1440.793@0.25.1440.793" timestamp="1636532044961" />
-    <state width="1358" height="173" key="GridCell.Tab.1.bottom" timestamp="1636532044963">
+    <state width="1358" height="173" key="GridCell.Tab.0.right/0.25.1440.793@0.25.1440.793" timestamp="1636596699058" />
+    <state width="1358" height="173" key="GridCell.Tab.1.bottom" timestamp="1636594937748">
       <screen x="0" y="25" width="1440" height="793" />
     </state>
-    <state width="1358" height="173" key="GridCell.Tab.1.bottom/0.25.1440.793@0.25.1440.793" timestamp="1636532044963" />
-    <state width="1358" height="173" key="GridCell.Tab.1.center" timestamp="1636532044962">
+    <state width="1358" height="173" key="GridCell.Tab.1.bottom/0.25.1440.793@0.25.1440.793" timestamp="1636594937748" />
+    <state width="1358" height="173" key="GridCell.Tab.1.center" timestamp="1636594937747">
       <screen x="0" y="25" width="1440" height="793" />
     </state>
-    <state width="1358" height="173" key="GridCell.Tab.1.center/0.25.1440.793@0.25.1440.793" timestamp="1636532044962" />
-    <state width="1358" height="173" key="GridCell.Tab.1.left" timestamp="1636532044961">
+    <state width="1358" height="173" key="GridCell.Tab.1.center/0.25.1440.793@0.25.1440.793" timestamp="1636594937747" />
+    <state width="1358" height="173" key="GridCell.Tab.1.left" timestamp="1636594937746">
       <screen x="0" y="25" width="1440" height="793" />
     </state>
-    <state width="1358" height="173" key="GridCell.Tab.1.left/0.25.1440.793@0.25.1440.793" timestamp="1636532044961" />
-    <state width="1358" height="173" key="GridCell.Tab.1.right" timestamp="1636532044962">
+    <state width="1358" height="173" key="GridCell.Tab.1.left/0.25.1440.793@0.25.1440.793" timestamp="1636594937746" />
+    <state width="1358" height="173" key="GridCell.Tab.1.right" timestamp="1636594937747">
       <screen x="0" y="25" width="1440" height="793" />
     </state>
-    <state width="1358" height="173" key="GridCell.Tab.1.right/0.25.1440.793@0.25.1440.793" timestamp="1636532044962" />
-    <state width="1358" height="216" key="GridCell.Tab.2.bottom" timestamp="1636506644989">
+    <state width="1358" height="173" key="GridCell.Tab.1.right/0.25.1440.793@0.25.1440.793" timestamp="1636594937747" />
+    <state width="1358" height="216" key="GridCell.Tab.2.bottom" timestamp="1636532510867">
       <screen x="0" y="25" width="1440" height="793" />
     </state>
-    <state width="1358" height="216" key="GridCell.Tab.2.bottom/0.25.1440.793@0.25.1440.793" timestamp="1636506644989" />
-    <state width="1358" height="216" key="GridCell.Tab.2.center" timestamp="1636506644988">
+    <state width="1358" height="216" key="GridCell.Tab.2.bottom/0.25.1440.793@0.25.1440.793" timestamp="1636532510867" />
+    <state width="1358" height="216" key="GridCell.Tab.2.center" timestamp="1636532510867">
       <screen x="0" y="25" width="1440" height="793" />
     </state>
-    <state width="1358" height="216" key="GridCell.Tab.2.center/0.25.1440.793@0.25.1440.793" timestamp="1636506644988" />
-    <state width="1358" height="216" key="GridCell.Tab.2.left" timestamp="1636506644988">
+    <state width="1358" height="216" key="GridCell.Tab.2.center/0.25.1440.793@0.25.1440.793" timestamp="1636532510867" />
+    <state width="1358" height="216" key="GridCell.Tab.2.left" timestamp="1636532510867">
       <screen x="0" y="25" width="1440" height="793" />
     </state>
-    <state width="1358" height="216" key="GridCell.Tab.2.left/0.25.1440.793@0.25.1440.793" timestamp="1636506644988" />
-    <state width="1358" height="216" key="GridCell.Tab.2.right" timestamp="1636506644989">
+    <state width="1358" height="216" key="GridCell.Tab.2.left/0.25.1440.793@0.25.1440.793" timestamp="1636532510867" />
+    <state width="1358" height="216" key="GridCell.Tab.2.right" timestamp="1636532510867">
       <screen x="0" y="25" width="1440" height="793" />
     </state>
-    <state width="1358" height="216" key="GridCell.Tab.2.right/0.25.1440.793@0.25.1440.793" timestamp="1636506644989" />
+    <state width="1358" height="216" key="GridCell.Tab.2.right/0.25.1440.793@0.25.1440.793" timestamp="1636532510867" />
     <state x="261" y="122" key="Maven.ArtifactSearchDialog" timestamp="1636010594534">
       <screen x="0" y="25" width="1440" height="793" />
     </state>
@@ -278,10 +298,10 @@
       <screen x="0" y="25" width="1440" height="793" />
     </state>
     <state x="244" y="25" key="SettingsEditor/0.25.1440.793@0.25.1440.793" timestamp="1636083091297" />
-    <state x="325" y="200" key="Vcs.Push.Dialog.v2" timestamp="1636440955416">
+    <state x="325" y="200" key="Vcs.Push.Dialog.v2" timestamp="1636532468117">
       <screen x="0" y="25" width="1440" height="793" />
     </state>
-    <state x="325" y="200" key="Vcs.Push.Dialog.v2/0.25.1440.793@0.25.1440.793" timestamp="1636440955416" />
+    <state x="325" y="200" key="Vcs.Push.Dialog.v2/0.25.1440.793@0.25.1440.793" timestamp="1636532468117" />
     <state x="501" y="131" width="984" height="691" key="dock-window-1" timestamp="1636340008723">
       <screen x="0" y="25" width="1440" height="793" />
     </state>

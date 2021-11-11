@@ -49,6 +49,7 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
     // 遍历request里的所有cookie，找到想要的那个
     private String getCookieValue(HttpServletRequest request, String cookieName) {
         Cookie[] cookies = request.getCookies();
+        // 避免测试的时候报错。应该是测试tolist的时候，user没有值，所以报错了
         if (cookies == null || StringUtils.isEmpty(cookieName)) {
             return null;
         }

@@ -35,7 +35,10 @@ public class MiaoshaController {
 
     @Autowired
     private MiaoshaService miaoshaService;
-
+    /*
+    * 优化前：QPS：1722
+    * 5000*10
+    * */
     @RequestMapping("/do_miaosha")
     public String list(Model model,
             // @CookieValue(value = MiaoshaUserService.COOKI_NAME_TOKEN, required = false) String cookieToken,

@@ -2,15 +2,21 @@ package com.imooc.miaosha.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.thymeleaf.context.WebContext;
+import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 
 import com.imooc.miaosha.domain.MiaoshaUser;
+import com.imooc.miaosha.redis.GoodsKey;
 import com.imooc.miaosha.redis.RedisService;
 import com.imooc.miaosha.service.GoodsService;
 import com.imooc.miaosha.service.MiaoshaUserService;
@@ -27,16 +33,23 @@ public class GoodsController {
 
     @Autowired
     private GoodsService goodsService;
+
+    @Autowired
+    private ThymeleafViewResolver thymeleafViewResolver;
     /*
     * 优化前：
     * QPS:2896.536
     * 5000 * 10
     * */
-    @RequestMapping(value="/to_list")
+    // produces = "text/html"表明该方法处理产生html之类的数据
+    @RequestMapping(value="/to_list", produces = "text/html")
+    // 接口返回一个json数据
+    @ResponseBody
     public String list(Model model,
             // @CookieValue(value = MiaoshaUserService.COOKI_NAME_TOKEN, required = false) String cookieToken,
             // @RequestParam(value = MiaoshaUserService.COOKI_NAME_TOKEN, required = false) String paramToken,
             MiaoshaUser user,
+            HttpServletRequest request,
             HttpServletResponse response) {
         /*
         * 这么做是因为，到了商品详情页等页面，也需要用户信息，也需要cookieToken等参数，写下面的
@@ -57,14 +70,39 @@ public class GoodsController {
         model.addAttribute("user", user);
         List<GoodsVo>  goodsList = goodsService.listGoodsVo();
         model.addAttribute("goodsList", goodsList);
-        return "goods_list";
+        // return "goods_list";
+        // 取缓存
+        String html = redisService.get(GoodsKey.getGoodsList, "", String.class);
+        if (!StringUtils.isEmpty(html)) {
+            return html;
+        }
+        WebContext ctx = new WebContext(request, response,
+                request.getServletContext(), request.getLocale(), model.asMap());
+        // 取不到，手动渲染,参数是模板名称（goods_list）与context
+        // 找到IContext接口，选中，ctrl + H看所有实现
+        html = thymeleafViewResolver.getTemplateEngine().process("goods_list", ctx);
+        if (!StringUtils.isEmpty(html)) {
+            // 把手动渲染的结果保存进缓存
+            redisService.set(GoodsKey.getGoodsList, "", html);
+        }
+        // 返回html页面
+        return html;
     }
     // 跳转到商品详情页
-    @RequestMapping(value="/to_detail/{goodsId}")
+    @RequestMapping(value="/to_detail/{goodsId}", produces = "text/html")
+    @ResponseBody
     public String detail(Model model,MiaoshaUser user,
-            @PathVariable("goodsId")long goodsId) {
+            @PathVariable("goodsId")long goodsId,
+            HttpServletRequest request,
+            HttpServletResponse response) {
         model.addAttribute("user", user);
+        // 取缓存
+        String html = redisService.get(GoodsKey.getGoodsDetail, "" + goodsId, String.class);
+        if (!StringUtils.isEmpty(html)) {
+            return html;
+        }
         // snowflake
+        // 手动渲染，先取数据
         GoodsVo goods = goodsService.getGoodsVoByGoodsId(goodsId);
         model.addAttribute("goods", goods);
         // 开始时间转化为毫秒
@@ -92,7 +130,19 @@ public class GoodsController {
         }
         model.addAttribute("miaoshaStatus", miaoshaStatus);
         model.addAttribute("remainSeconds", remainSeconds);
-        return "goods_detail";
+
+        WebContext ctx = new WebContext(request, response,
+                request.getServletContext(), request.getLocale(), model.asMap());
+        // 取不到，手动渲染,参数是模板名称（goods_list）与context
+        // 找到IContext接口，选中，ctrl + H看所有实现
+        html = thymeleafViewResolver.getTemplateEngine().process("goods_detail", ctx);
+        if (!StringUtils.isEmpty(html)) {
+            // 把手动渲染的结果保存进缓存
+            redisService.set(GoodsKey.getGoodsDetail, "" + goodsId, html);
+        }
+        // 返回html页面
+        return html;
+        // return "goods_detail";
     }
 
 

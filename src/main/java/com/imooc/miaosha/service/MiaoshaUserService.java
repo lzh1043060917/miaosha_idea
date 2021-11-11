@@ -29,7 +29,38 @@ public class MiaoshaUserService {
     private RedisService redisService;
 
     public MiaoshaUser getById(long id) {
-        return miaoshaUserDao.getById(id);
+        // 取出缓存
+        MiaoshaUser user = redisService.get(MiaoshaUserKey.getById, "" + id, MiaoshaUser.class);
+        if (user != null) {
+            return user;
+        } else {
+            user = miaoshaUserDao.getById(id);
+            redisService.set(MiaoshaUserKey.getById, "" + id, user);
+            return user;
+        }
+    }
+
+    // http://blog.csdn.net/tTU1EvLDeLFq5btqiK/article/details/78693323
+    public boolean updatePassword(String token, long id, String formPass) {
+        //取user
+        MiaoshaUser user = getById(id);
+        if(user == null) {
+            throw new GlobalException(CodeMsg.MOBILE_NOT_EXIST);
+        }
+        // 更新的数据越多，产生的binlog也越多，创建新的对象，只传id和密码，就只会更新这俩数据
+        //更新数据库
+        MiaoshaUser toBeUpdate = new MiaoshaUser();
+        toBeUpdate.setId(id);
+        toBeUpdate.setPassword(MD5Util.formPassToDBPass(formPass, user.getSalt()));
+        miaoshaUserDao.update(toBeUpdate);
+        // 处理缓存
+        // 删除对于用户数据的缓存，重新获取就好了
+        redisService.delete(MiaoshaUserKey.getById, ""+id);
+        user.setPassword(toBeUpdate.getPassword());
+        // 因为登陆之后需要根据token获取用户数据，这里需要更改用户的密码信息，再set进redis
+        // 这里可以改成删除旧的token再用新的token
+        redisService.set(MiaoshaUserKey.token, token, user);
+        return true;
     }
 
     public String login(HttpServletResponse response, LoginVo loginVo) {
@@ -63,6 +94,7 @@ public class MiaoshaUserService {
         if(StringUtils.isEmpty(token)) {
             return null;
         }
+        // 对象级缓存
         MiaoshaUser user = redisService.get(MiaoshaUserKey.token, token, MiaoshaUser.class);
         /*
         * 延长有效期的目的就是为了避免cookie中的token过期，假如：设置的token中的有效期是2个小时，

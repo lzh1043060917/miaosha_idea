@@ -40,6 +40,10 @@ public class GoodsController {
     * 优化前：
     * QPS:2896.536
     * 5000 * 10
+    *
+    * 优化后
+    * QPS:5029.2
+    * 5000*10
     * */
     // produces = "text/html"表明该方法处理产生html之类的数据
     @RequestMapping(value="/to_list", produces = "text/html")
@@ -67,15 +71,15 @@ public class GoodsController {
         if (user == null) {
             return "login";
         }*/
-        model.addAttribute("user", user);
-        List<GoodsVo>  goodsList = goodsService.listGoodsVo();
-        model.addAttribute("goodsList", goodsList);
-        // return "goods_list";
         // 取缓存
         String html = redisService.get(GoodsKey.getGoodsList, "", String.class);
         if (!StringUtils.isEmpty(html)) {
             return html;
         }
+        model.addAttribute("user", user);
+        List<GoodsVo>  goodsList = goodsService.listGoodsVo();
+        model.addAttribute("goodsList", goodsList);
+        // return "goods_list";
         WebContext ctx = new WebContext(request, response,
                 request.getServletContext(), request.getLocale(), model.asMap());
         // 取不到，手动渲染,参数是模板名称（goods_list）与context

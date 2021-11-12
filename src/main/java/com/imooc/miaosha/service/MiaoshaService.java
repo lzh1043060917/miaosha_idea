@@ -25,11 +25,16 @@ public class MiaoshaService {
     @Transactional
     public OrderInfo miaosha(MiaoshaUser user, GoodsVo goods) {
         // 减库存,一个service如果要用其他dao的方法，最好调用其他service的方法。
-        goodsService.reduceStock(goods);
+        boolean success = goodsService.reduceStock(goods);
 
         // 下订单，实际写了俩表，orderInfo与miaosha_order
         OrderInfo orderInfo = orderService.createOrder(user, goods);
         return orderInfo;
+
+
+        //private void setGoodsOver(Long goodsId) {
+            //redisService.set(MiaoshaKey.isGoodsOver, ""+goodsId, true);
+        //}
 
         /*
         //减库存 下订单 写入秒杀订单

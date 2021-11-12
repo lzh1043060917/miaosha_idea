@@ -108,12 +108,12 @@ public class GoodsController {
             @PathVariable("goodsId")long goodsId,
             HttpServletRequest request,
             HttpServletResponse response) {
-        model.addAttribute("user", user);
 
         // snowflake
         // 手动渲染，先取数据
         GoodsVo goods = goodsService.getGoodsVoByGoodsId(goodsId);
-        model.addAttribute("goods", goods);
+        // 页面缓存和model关系不大，用火狐浏览器能看清楚已缓存
+        // model.addAttribute("goods", goods);
         // 开始时间转化为毫秒
         long startAt = goods.getStartDate().getTime();
         // 结束时间转化为毫秒

@@ -81,6 +81,27 @@
 </div>
 </body>
 <script>
+    function doMiaosha() {
+    $.ajax({
+        url:"/miaosha/do_miaosha",
+        type: "POST",
+        data:{
+            goodsId:$("#goodsId").val(),
+        },
+        success:function(data){
+            if(data.code == 0){
+                // 跳转到详情页面
+                window.location.href="/order_detail.htm?orderId="+data.data.id;
+                // getMiaoshaResult($("#goodsId").val());
+            }else{
+                layer.msg(data.msg);
+            }
+        },
+        error:function(){
+            layer.msg("客户端请求有误");
+        }
+    });
+    }
 
     function render(detail){
         var miaoshaStatus = detail.miaoshaStatus;
@@ -115,7 +136,7 @@ function getDetail() {
         // 请求这个url
         url:"/goods/detail/" + goodsId,
         type:"GET",
-        // 参数带上
+        // 参数带上,data是调用接口之后返回的结果
         success:function (data) {
             if (data.code == 0) {
                 // 把数据渲染出来

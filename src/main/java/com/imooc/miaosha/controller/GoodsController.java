@@ -18,8 +18,10 @@ import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import com.imooc.miaosha.domain.MiaoshaUser;
 import com.imooc.miaosha.redis.GoodsKey;
 import com.imooc.miaosha.redis.RedisService;
+import com.imooc.miaosha.result.Result;
 import com.imooc.miaosha.service.GoodsService;
 import com.imooc.miaosha.service.MiaoshaUserService;
+import com.imooc.miaosha.vo.GoodsDetailVo;
 import com.imooc.miaosha.vo.GoodsVo;
 
 @Controller
@@ -93,9 +95,61 @@ public class GoodsController {
         return html;
     }
     // 跳转到商品详情页
-    @RequestMapping(value="/to_detail/{goodsId}", produces = "text/html")
+    // 页面静态化,服务端只需要提供数据。
+    /*
+    * thymeleaf是服务端模板，分离之前是服务端查询数据库，加载thymeleaf模板，
+    * 把数据填充到thymeleaf模板里面，生成完整的html，然后把完整的html发送给浏览器展示。
+    * 分离以后服务端只需要输出数据，不需要输出html。html可以放在单独的静态文件服务器上，
+    * 浏览器访问的是静态服务器上的html，拿到html以后，使用js去调用服务端的接口，拿到数据，填充页面进行展示。
+    * */
+    @RequestMapping(value="/detail/{goodsId}")
     @ResponseBody
-    public String detail(Model model,MiaoshaUser user,
+    public Result<GoodsDetailVo> detail(Model model,MiaoshaUser user,
+            @PathVariable("goodsId")long goodsId,
+            HttpServletRequest request,
+            HttpServletResponse response) {
+        model.addAttribute("user", user);
+
+        // snowflake
+        // 手动渲染，先取数据
+        GoodsVo goods = goodsService.getGoodsVoByGoodsId(goodsId);
+        model.addAttribute("goods", goods);
+        // 开始时间转化为毫秒
+        long startAt = goods.getStartDate().getTime();
+        // 结束时间转化为毫秒
+        long endAt = goods.getEndDate().getTime();
+        long now = System.currentTimeMillis();
+        // 秒杀状态，根据它显示不同文案
+        int miaoshaStatus = 0;
+        // 离秒杀开始还有多久
+        int remainSeconds = 0;
+        if (now < startAt) {
+            // 秒杀没开始，倒计时
+            miaoshaStatus = 0;
+            // 转化成秒
+            remainSeconds = (int)((startAt - now )/1000);
+        } else if (now > endAt) {
+            // 秒杀结束
+            miaoshaStatus = 2;
+            remainSeconds = -1;
+        } else {
+            // 正在进行
+            miaoshaStatus = 1;
+            remainSeconds = 0;
+        }
+        GoodsDetailVo goodsDetailVo = new GoodsDetailVo();
+        goodsDetailVo.setGoods(goods);
+        goodsDetailVo.setUser(user);
+        goodsDetailVo.setMiaoshaStatus(miaoshaStatus);
+        // 这个参数记得
+        goodsDetailVo.setRemainSeconds(remainSeconds);
+        return Result.success(goodsDetailVo);
+    }
+
+    // 跳转到商品详情页，页面缓存
+    @RequestMapping(value="/to_detail2/{goodsId}", produces = "text/html")
+    @ResponseBody
+    public String detail2(Model model,MiaoshaUser user,
             @PathVariable("goodsId")long goodsId,
             HttpServletRequest request,
             HttpServletResponse response) {
@@ -148,7 +202,5 @@ public class GoodsController {
         return html;
         // return "goods_detail";
     }
-
-
 
 }

@@ -44,8 +44,9 @@
             <td th:text="${goods.goodsPrice}"></td>
             <td th:text="${goods.miaoshaPrice}"></td>
             <td th:text="${goods.stockCount}"></td>
-            <!--<td><a th:href="'/goods_detail.htm?goodsId='+${goods.id}">详情</a></td>-->
-            <td><a th:href="'/goods/to_detail/'+${goods.id}">详情</a></td>
+            <!-- 跳转到goods_detail.htm这个静态页面。通过ajax直接从服务端获取数据 -->
+            <td><a th:href="'/goods_detail.htm?goodsId='+${goods.id}">详情</a></td>
+            <!-- <td><a th:href="'/goods/to_detail/'+${goods.id}">详情</a></td> -->
         </tr>
     </table>
 </div>

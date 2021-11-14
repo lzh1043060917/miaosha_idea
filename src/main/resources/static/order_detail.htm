@@ -103,6 +103,7 @@ function getOrderDetail(){
 		},
 		success:function(data){
 			if(data.code == 0){
+			    // 渲染页面
 				render(data.data);
 			}else{
 				layer.msg(data.msg);

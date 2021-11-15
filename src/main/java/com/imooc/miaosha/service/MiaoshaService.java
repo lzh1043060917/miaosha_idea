@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.imooc.miaosha.domain.MiaoshaUser;
 import com.imooc.miaosha.domain.OrderInfo;
+import com.imooc.miaosha.redis.MiaoshaKey;
 import com.imooc.miaosha.redis.RedisService;
 import com.imooc.miaosha.vo.GoodsVo;
 
@@ -24,6 +25,7 @@ public class MiaoshaService {
     // 事务操作
     @Transactional
     public OrderInfo miaosha(MiaoshaUser user, GoodsVo goods) {
+
         // 减库存,一个service如果要用其他dao的方法，最好调用其他service的方法。
         boolean success = goodsService.reduceStock(goods);
 
@@ -46,5 +48,9 @@ public class MiaoshaService {
             return null;
         }
          */
+    }
+
+    private void setGoodsOver(Long goodsId) {
+        redisService.set(MiaoshaKey.isGoodsOver, ""+goodsId, true);
     }
 }

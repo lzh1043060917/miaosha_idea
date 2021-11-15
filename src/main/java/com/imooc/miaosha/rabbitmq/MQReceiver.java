@@ -3,12 +3,32 @@ package com.imooc.miaosha.rabbitmq;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.imooc.miaosha.domain.MiaoshaUser;
+import com.imooc.miaosha.redis.RedisService;
+import com.imooc.miaosha.service.GoodsService;
+import com.imooc.miaosha.service.MiaoshaService;
+import com.imooc.miaosha.service.OrderService;
+import com.imooc.miaosha.vo.GoodsVo;
 
 @Service
 public class MQReceiver {
     private static Logger log = LoggerFactory.getLogger(MQReceiver.class);
 
+    @Autowired
+    private RedisService redisService;
+
+    @Autowired
+    private GoodsService goodsService;
+
+    @Autowired
+    private OrderService orderService;
+
+    @Autowired
+    private MiaoshaService miaoshaService;
+    /*
     // 监听这个队列，参数为队列名
     @RabbitListener(queues=MQConfig.QUEUE)
     public void receive(String message) {
@@ -28,5 +48,23 @@ public class MQReceiver {
     @RabbitListener(queues=MQConfig.HEADER_QUEUE)
     public void receiveHeaderQueue(byte[] message) {
         log.info(" header  queue message:"+new String(message));
+    }
+     */
+
+    @RabbitListener(queues=MQConfig.MIAOSHA_QUEUE)
+    public void receiveMiaoshaQueue(String message) {
+        // 还原出对象
+        MiaoshaMessage miaoshaMessage = RedisService.stringToBean(message, MiaoshaMessage.class);
+        log.info("receive miaosha message" + message);
+        MiaoshaUser miaoshaUser = miaoshaMessage.getUser();
+        Long goodsId = miaoshaMessage.getGoodsId();
+        GoodsVo goods = goodsService.getGoodsVoByGoodsId(goodsId);
+        // 这个数字是数据库里的数字，准确的
+        int stock = goods.getStockCount();
+        if(stock <= 0) {
+            return;
+        }
+        // 之后就是生成订单减库存那套了，相当于把原先同步进行的操作变成异步
+
     }
 }

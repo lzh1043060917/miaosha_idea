@@ -3,8 +3,6 @@ package com.imooc.miaosha.rabbitmq;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.AmqpTemplate;
-import org.springframework.amqp.core.Message;
-import org.springframework.amqp.core.MessageProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +14,7 @@ public class MQSender {
     // 注入AmqpTemplate接口，该接口定义了发送和接收消息的基本操作
     @Autowired
     private AmqpTemplate amqpTemplate;
-
+    /*
     public void send(Object message) {
         String msg = RedisService.beanToString(message);
         log.info("send message" + msg);
@@ -49,5 +47,13 @@ public class MQSender {
         // message，需要用字节方式传输
         Message obj = new Message(msg.getBytes(), properties);
         amqpTemplate.convertAndSend(MQConfig.HEADERS_EXCHANGE, "", obj);
+    }
+     */
+
+    public void sendMiaoshaMessage(MiaoshaMessage miaoshaMessage) {
+        String msg = RedisService.beanToString(miaoshaMessage);
+        log.info("send message" + msg);
+        // 第一个参数是发送到的队列名称，第二个参数是发送的数据
+        amqpTemplate.convertAndSend(MQConfig.MIAOSHA_QUEUE, msg);
     }
 }

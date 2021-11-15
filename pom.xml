@@ -34,7 +34,7 @@
       <scope>test</scope>
     </dependency>
 
-    <!-- provided意思是编译时依赖 -->
+    <!-- provided意思是编译时依赖，打包成war包时需要这个 -->
     <!--
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -113,6 +113,11 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-validation</artifactId>
+    </dependency>
+    <!-- rabbitMq需要的协议 -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-amqp</artifactId>
     </dependency>
   </dependencies>
 

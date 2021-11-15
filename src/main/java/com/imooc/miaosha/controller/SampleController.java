@@ -63,10 +63,24 @@ public class SampleController {
         return Result.success(true);
     }
 
-    	@RequestMapping("/mq")
-        @ResponseBody
-        public Result<String> mq() {
-    		sender.send("hello,imooc");
-            return Result.success("Hello，world");
-        }
+    @RequestMapping("/mq")
+    @ResponseBody
+    public Result<String> mq() {
+        sender.sendTopic("hello,imooc");
+        return Result.success("Hello，world");
+    }
+
+    @RequestMapping("/mq/fanout")
+    @ResponseBody
+    public Result<String> mqFanout() {
+        sender.sendFanout("hello,imooc");
+        return Result.success("Hello，world");
+    }
+
+    @RequestMapping("/mq/header")
+    @ResponseBody
+    public Result<String> mqHeader() {
+        sender.sendHeader("hello,imooc");
+        return Result.success("Hello，world");
+    }
 }

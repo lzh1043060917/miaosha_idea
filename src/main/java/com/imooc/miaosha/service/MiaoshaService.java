@@ -11,6 +11,8 @@ import com.imooc.miaosha.domain.MiaoshaUser;
 import com.imooc.miaosha.domain.OrderInfo;
 import com.imooc.miaosha.redis.MiaoshaKey;
 import com.imooc.miaosha.redis.RedisService;
+import com.imooc.miaosha.util.MD5Util;
+import com.imooc.miaosha.util.UUIDUtil;
 import com.imooc.miaosha.vo.GoodsVo;
 
 @Service
@@ -24,6 +26,9 @@ public class MiaoshaService {
 
     @Autowired
     RedisService redisService;
+
+    private static final String pathSalt = "abcd";
+
 
     // 事务操作
     @Transactional
@@ -86,5 +91,26 @@ public class MiaoshaService {
     public void reset(List<GoodsVo> goodsList) {
         goodsService.resetStock(goodsList);
         orderService.deleteOrders();
+    }
+
+    public boolean checkPath(MiaoshaUser user, long goodsId, String path) {
+        if (user == null || path == null) {
+            return false;
+        }
+        String pathOld = redisService.get(MiaoshaKey.getMiaoshaPath, "" + user.getId() +
+                "_" + goodsId, String.class);
+        // 判断path是否相等
+        return path.equals(pathOld);
+    }
+
+    // 生成秒杀路径
+    public String createMiaoshaPath(MiaoshaUser user, long goodsId) {
+        if(user == null || goodsId <= 0) {
+            return null;
+        }
+        String str = MD5Util.md5(UUIDUtil.uuid() + pathSalt);
+        // path的有效期设置成60s，调用这个接口之后很快就会调用秒杀接口，每一个用户的path都可以是不同的
+        redisService.set(MiaoshaKey.getMiaoshaPath, "" + user.getId() + "_"+ goodsId, str);
+        return str;
     }
 }

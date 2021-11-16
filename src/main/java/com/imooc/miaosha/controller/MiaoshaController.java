@@ -8,6 +8,7 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -102,16 +103,22 @@ e       * .客户端轮询，是否秒杀成功
         * 优化后QPS：5311.929
         * 5000*10
     * * */
-    @RequestMapping(value = "/do_miaosha", method = RequestMethod.POST)
+    @RequestMapping(value = "/{path}/do_miaosha", method = RequestMethod.POST)
     @ResponseBody
     public Result<Integer> doMiaosha(Model model,
             // @CookieValue(value = MiaoshaUserService.COOKI_NAME_TOKEN, required = false) String cookieToken,
             // @RequestParam(value = MiaoshaUserService.COOKI_NAME_TOKEN, required = false) String paramToken,
             MiaoshaUser user,
-            @RequestParam("goodsId")long goodsId) {
+            @RequestParam("goodsId")long goodsId,
+            @PathVariable("path")String path) {
         // model.addAttribute("user", user);
         if (user == null) {
             return Result.error(CodeMsg.SESSION_ERROR);
+        }
+        // 验证path
+        boolean check = miaoshaService.checkPath(user, goodsId, path);
+        if (!check) {
+            return Result.error(CodeMsg.REQUEST_ILLEGAL);
         }
         //内存标记，减少redis访问
         boolean over = localOverMap.get(goodsId);
@@ -160,7 +167,6 @@ e       * .客户端轮询，是否秒杀成功
         OrderInfo orderInfo = miaoshaService.miaosha(user, goods);
         return Result.success(orderInfo);
          */
-
     }
 
     /**
@@ -180,6 +186,36 @@ e       * .客户端轮询，是否秒杀成功
         return Result.success(result);
     }
 
+    // 重置数据
+    @RequestMapping(value="/reset", method=RequestMethod.GET)
+    @ResponseBody
+    public Result<Boolean> reset(Model model) {
+        List<GoodsVo> goodsList = goodsService.listGoodsVo();
+        for(GoodsVo goods : goodsList) {
+            goods.setStockCount(10);
+            redisService.set(GoodsKey.getMiaoshaGoodsStock, ""+goods.getId(), 10);
+            localOverMap.put(goods.getId(), false);
+        }
+        // 删除用户的订单信息
+        redisService.delete(OrderKey.getMiaoshaOrderByUidGid);
+        // 删除秒杀完毕的信息
+        redisService.delete(MiaoshaKey.isGoodsOver);
+        miaoshaService.reset(goodsList);
+        return Result.success(true);
+    }
+    // 获取秒杀地址
+    @RequestMapping(value="/path", method=RequestMethod.GET)
+    @ResponseBody
+    public Result<String> getMiaoshaPath(@RequestParam("goodsId")long goodsId,
+            MiaoshaUser user) {
+        if(user == null) {
+            return Result.error(CodeMsg.SESSION_ERROR);
+        }
+        // 生成Path
+        String str = miaoshaService.createMiaoshaPath(user, goodsId);
+        return Result.success(str);
+    }
+
     // 当类implements InitializingBean之后，项目启动之后，会回调这个接口
     // 把秒杀商品库存加入缓存
     @Override
@@ -197,22 +233,5 @@ e       * .客户端轮询，是否秒杀成功
                 localOverMap.put(goods.getId(), true);
             }
         }
-    }
-    // 重置数据
-    @RequestMapping(value="/reset", method=RequestMethod.GET)
-    @ResponseBody
-    public Result<Boolean> reset(Model model) {
-        List<GoodsVo> goodsList = goodsService.listGoodsVo();
-        for(GoodsVo goods : goodsList) {
-            goods.setStockCount(10);
-            redisService.set(GoodsKey.getMiaoshaGoodsStock, ""+goods.getId(), 10);
-            localOverMap.put(goods.getId(), false);
-        }
-        // 删除用户的订单信息
-        redisService.delete(OrderKey.getMiaoshaOrderByUidGid);
-        // 删除秒杀完毕的信息
-        redisService.delete(MiaoshaKey.isGoodsOver);
-        miaoshaService.reset(goodsList);
-        return Result.success(true);
     }
 }

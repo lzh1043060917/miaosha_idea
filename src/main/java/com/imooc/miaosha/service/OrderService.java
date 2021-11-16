@@ -48,6 +48,7 @@ public class OrderService {
         // 实际上，后面会在秒杀前加入验证码，不会出现这种情况
         MiaoshaOrder miaoshaOrder = new MiaoshaOrder();
         miaoshaOrder.setGoodsId(goods.getId());
+        // 插入之后，mybatis会把主键插入对象里面来，所以要这么获取主键
         miaoshaOrder.setOrderId(orderInfo.getId());
         miaoshaOrder.setUserId(user.getId());
         orderDao.insertMiaoshaOrder(miaoshaOrder);
@@ -59,5 +60,10 @@ public class OrderService {
 
     public OrderInfo getOrderById(Long orderId) {
         return orderDao.getOrderById(orderId);
+    }
+
+    public void deleteOrders() {
+        orderDao.deleteOrders();
+        orderDao.deleteMiaoshaOrders();
     }
 }

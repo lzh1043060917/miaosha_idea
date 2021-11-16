@@ -12,6 +12,16 @@
   <component name="ChangeListManager">
     <list default="true" id="cfc1543f-7b34-4457-9362-ffdc24038f9b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/imooc/miaosha/controller/MiaoshaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/imooc/miaosha/controller/MiaoshaController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/imooc/miaosha/dao/GoodsDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/imooc/miaosha/dao/GoodsDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/imooc/miaosha/rabbitmq/MQConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/imooc/miaosha/rabbitmq/MQConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/imooc/miaosha/rabbitmq/MQReceiver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/imooc/miaosha/rabbitmq/MQReceiver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/imooc/miaosha/redis/MiaoshaKey.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/imooc/miaosha/redis/MiaoshaKey.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/imooc/miaosha/redis/MiaoshaUserKey.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/imooc/miaosha/redis/MiaoshaUserKey.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/imooc/miaosha/redis/OrderKey.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/imooc/miaosha/redis/OrderKey.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/imooc/miaosha/service/MiaoshaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/imooc/miaosha/service/MiaoshaService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/imooc/miaosha/service/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/imooc/miaosha/service/OrderService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/goods_detail.htm" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/goods_detail.htm" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,7 +42,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="chapter5" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -130,7 +140,7 @@
         <item itemvalue="Application.UserUtil" />
         <item itemvalue="Application.MD5Util" />
         <item itemvalue="Spring Boot.MainApplication" />
-        <item itemvalue="Application.MD5Util" />
+        <item itemvalue="Application.UserUtil" />
       </list>
     </recent_temporary>
   </component>
@@ -162,6 +172,7 @@
       <workItem from="1636872262635" duration="4226000" />
       <workItem from="1636934142867" duration="113000" />
       <workItem from="1636934269570" duration="248000" />
+      <workItem from="1637020085199" duration="8433000" />
     </task>
     <servers />
   </component>
@@ -219,10 +230,10 @@
       <screen x="0" y="25" width="1440" height="793" />
     </state>
     <state x="442" y="221" key="#com.intellij.codeInsight.editorActions.RestoreReferencesDialog/0.25.1440.793@0.25.1440.793" timestamp="1636331098986" />
-    <state x="507" y="173" key="#com.intellij.ide.util.MemberChooser" timestamp="1636611650229">
+    <state x="507" y="173" key="#com.intellij.ide.util.MemberChooser" timestamp="1636965664577">
       <screen x="0" y="25" width="1440" height="793" />
     </state>
-    <state x="507" y="173" key="#com.intellij.ide.util.MemberChooser/0.25.1440.793@0.25.1440.793" timestamp="1636611650229" />
+    <state x="507" y="173" key="#com.intellij.ide.util.MemberChooser/0.25.1440.793@0.25.1440.793" timestamp="1636965664577" />
     <state x="0" y="25" width="1440" height="793" key="DiffContextDialog" timestamp="1636351947883">
       <screen x="0" y="25" width="1440" height="793" />
     </state>
@@ -235,38 +246,38 @@
       <screen x="0" y="25" width="1440" height="793" />
     </state>
     <state x="513" y="172" key="Github.UntrackedFilesDialog/0.25.1440.793@0.25.1440.793" timestamp="1635927976782" />
-    <state width="1358" height="173" key="GridCell.Tab.0.bottom" timestamp="1636876750529">
+    <state width="1358" height="173" key="GridCell.Tab.0.bottom" timestamp="1637029335325">
       <screen x="0" y="25" width="1440" height="793" />
     </state>
-    <state width="1358" height="173" key="GridCell.Tab.0.bottom/0.25.1440.793@0.25.1440.793" timestamp="1636876750529" />
-    <state width="1358" height="173" key="GridCell.Tab.0.center" timestamp="1636876750528">
+    <state width="1358" height="173" key="GridCell.Tab.0.bottom/0.25.1440.793@0.25.1440.793" timestamp="1637029335325" />
+    <state width="1358" height="173" key="GridCell.Tab.0.center" timestamp="1637029335324">
       <screen x="0" y="25" width="1440" height="793" />
     </state>
-    <state width="1358" height="173" key="GridCell.Tab.0.center/0.25.1440.793@0.25.1440.793" timestamp="1636876750528" />
-    <state width="1358" height="173" key="GridCell.Tab.0.left" timestamp="1636876750527">
+    <state width="1358" height="173" key="GridCell.Tab.0.center/0.25.1440.793@0.25.1440.793" timestamp="1637029335324" />
+    <state width="1358" height="173" key="GridCell.Tab.0.left" timestamp="1637029335324">
       <screen x="0" y="25" width="1440" height="793" />
     </state>
-    <state width="1358" height="173" key="GridCell.Tab.0.left/0.25.1440.793@0.25.1440.793" timestamp="1636876750527" />
-    <state width="1358" height="173" key="GridCell.Tab.0.right" timestamp="1636876750528">
+    <state width="1358" height="173" key="GridCell.Tab.0.left/0.25.1440.793@0.25.1440.793" timestamp="1637029335324" />
+    <state width="1358" height="173" key="GridCell.Tab.0.right" timestamp="1637029335325">
       <screen x="0" y="25" width="1440" height="793" />
     </state>
-    <state width="1358" height="173" key="GridCell.Tab.0.right/0.25.1440.793@0.25.1440.793" timestamp="1636876750528" />
-    <state width="1358" height="173" key="GridCell.Tab.1.bottom" timestamp="1636876750530">
+    <state width="1358" height="173" key="GridCell.Tab.0.right/0.25.1440.793@0.25.1440.793" timestamp="1637029335325" />
+    <state width="1358" height="173" key="GridCell.Tab.1.bottom" timestamp="1637029335327">
       <screen x="0" y="25" width="1440" height="793" />
     </state>
-    <state width="1358" height="173" key="GridCell.Tab.1.bottom/0.25.1440.793@0.25.1440.793" timestamp="1636876750530" />
-    <state width="1358" height="173" key="GridCell.Tab.1.center" timestamp="1636876750529">
+    <state width="1358" height="173" key="GridCell.Tab.1.bottom/0.25.1440.793@0.25.1440.793" timestamp="1637029335327" />
+    <state width="1358" height="173" key="GridCell.Tab.1.center" timestamp="1637029335326">
       <screen x="0" y="25" width="1440" height="793" />
     </state>
-    <state width="1358" height="173" key="GridCell.Tab.1.center/0.25.1440.793@0.25.1440.793" timestamp="1636876750529" />
-    <state width="1358" height="173" key="GridCell.Tab.1.left" timestamp="1636876750529">
+    <state width="1358" height="173" key="GridCell.Tab.1.center/0.25.1440.793@0.25.1440.793" timestamp="1637029335326" />
+    <state width="1358" height="173" key="GridCell.Tab.1.left" timestamp="1637029335326">
       <screen x="0" y="25" width="1440" height="793" />
     </state>
-    <state width="1358" height="173" key="GridCell.Tab.1.left/0.25.1440.793@0.25.1440.793" timestamp="1636876750529" />
-    <state width="1358" height="173" key="GridCell.Tab.1.right" timestamp="1636876750530">
+    <state width="1358" height="173" key="GridCell.Tab.1.left/0.25.1440.793@0.25.1440.793" timestamp="1637029335326" />
+    <state width="1358" height="173" key="GridCell.Tab.1.right" timestamp="1637029335327">
       <screen x="0" y="25" width="1440" height="793" />
     </state>
-    <state width="1358" height="173" key="GridCell.Tab.1.right/0.25.1440.793@0.25.1440.793" timestamp="1636876750530" />
+    <state width="1358" height="173" key="GridCell.Tab.1.right/0.25.1440.793@0.25.1440.793" timestamp="1637029335327" />
     <state width="1358" height="216" key="GridCell.Tab.2.bottom" timestamp="1636532510867">
       <screen x="0" y="25" width="1440" height="793" />
     </state>
@@ -283,33 +294,44 @@
       <screen x="0" y="25" width="1440" height="793" />
     </state>
     <state width="1358" height="216" key="GridCell.Tab.2.right/0.25.1440.793@0.25.1440.793" timestamp="1636532510867" />
-    <state x="261" y="122" key="Maven.ArtifactSearchDialog" timestamp="1636010594534">
+    <state x="261" y="122" key="Maven.ArtifactSearchDialog" timestamp="1636941628350">
       <screen x="0" y="25" width="1440" height="793" />
     </state>
-    <state x="261" y="122" key="Maven.ArtifactSearchDialog/0.25.1440.793@0.25.1440.793" timestamp="1636010594534" />
+    <state x="261" y="122" key="Maven.ArtifactSearchDialog/0.25.1440.793@0.25.1440.793" timestamp="1636941628350" />
     <state x="244" y="25" key="SettingsEditor" timestamp="1636083091297">
       <screen x="0" y="25" width="1440" height="793" />
     </state>
     <state x="244" y="25" key="SettingsEditor/0.25.1440.793@0.25.1440.793" timestamp="1636083091297" />
-    <state x="325" y="200" key="Vcs.Push.Dialog.v2" timestamp="1636876735410">
+    <state x="325" y="200" key="Vcs.Push.Dialog.v2" timestamp="1636966863469">
       <screen x="0" y="25" width="1440" height="793" />
     </state>
-    <state x="325" y="200" key="Vcs.Push.Dialog.v2/0.25.1440.793@0.25.1440.793" timestamp="1636876735410" />
+    <state x="325" y="200" key="Vcs.Push.Dialog.v2/0.25.1440.793@0.25.1440.793" timestamp="1636966863469" />
     <state x="501" y="131" width="984" height="691" key="dock-window-1" timestamp="1636340008723">
       <screen x="0" y="25" width="1440" height="793" />
     </state>
     <state x="501" y="131" width="984" height="691" key="dock-window-1/0.25.1440.793@0.25.1440.793" timestamp="1636340008723" />
-    <state x="405" y="217" width="708" height="490" key="find.popup" timestamp="1636702547838">
+    <state x="405" y="217" width="708" height="490" key="find.popup" timestamp="1637025436048">
       <screen x="0" y="25" width="1440" height="793" />
     </state>
-    <state x="405" y="217" width="708" height="490" key="find.popup/0.25.1440.793@0.25.1440.793" timestamp="1636702547838" />
+    <state x="405" y="217" width="708" height="490" key="find.popup/0.25.1440.793@0.25.1440.793" timestamp="1637025436048" />
     <state x="448" y="179" key="git4idea.branch.GitSmartOperationDialog" timestamp="1636353854308">
       <screen x="0" y="25" width="1440" height="793" />
     </state>
     <state x="448" y="179" key="git4idea.branch.GitSmartOperationDialog/0.25.1440.793@0.25.1440.793" timestamp="1636353854308" />
-    <state x="360" y="142" width="670" height="676" key="search.everywhere.popup" timestamp="1636704814057">
+    <state x="360" y="142" width="670" height="676" key="search.everywhere.popup" timestamp="1636961533966">
       <screen x="0" y="25" width="1440" height="793" />
     </state>
-    <state x="360" y="142" width="670" height="676" key="search.everywhere.popup/0.25.1440.793@0.25.1440.793" timestamp="1636704814057" />
+    <state x="360" y="142" width="670" height="676" key="search.everywhere.popup/0.25.1440.793@0.25.1440.793" timestamp="1636961533966" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/imooc/miaosha/service/MiaoshaUserService.java</url>
+          <line>97</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

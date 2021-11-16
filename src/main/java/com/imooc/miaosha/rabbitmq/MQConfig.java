@@ -99,4 +99,10 @@ public class MQConfig {
         // headers必须完全满足上面那俩key和value，才能送到队列里面去
         return BindingBuilder.bind(headerQueue1()).to(headersExchage()).whereAll(map).match();
     }
+
+    @Bean
+    public Queue miaoshaQueue() {
+        // Queue的第一个参数为队列名称，第二个参数为是否持久存在
+        return new Queue(MIAOSHA_QUEUE, true);
+    }
 }

@@ -6,6 +6,7 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.imooc.miaosha.domain.MiaoshaOrder;
 import com.imooc.miaosha.domain.MiaoshaUser;
 import com.imooc.miaosha.redis.RedisService;
 import com.imooc.miaosha.service.GoodsService;
@@ -58,6 +59,7 @@ public class MQReceiver {
         log.info("receive miaosha message" + message);
         MiaoshaUser miaoshaUser = miaoshaMessage.getUser();
         Long goodsId = miaoshaMessage.getGoodsId();
+        // 预减库存和查看有无重复秒杀，已经把大部分请求拦住了
         GoodsVo goods = goodsService.getGoodsVoByGoodsId(goodsId);
         // 这个数字是数据库里的数字，准确的
         int stock = goods.getStockCount();
@@ -65,6 +67,12 @@ public class MQReceiver {
             return;
         }
         // 之后就是生成订单减库存那套了，相当于把原先同步进行的操作变成异步
-
+        //判断是否已经秒杀到了
+        MiaoshaOrder order = orderService.getMiaoshaOrderByUserIdGoodsId(miaoshaUser.getId(), goodsId);
+        if (order != null) {
+            return;
+        }
+        //减库存 下订单 写入秒杀订单
+        miaoshaService.miaosha(miaoshaUser, goods);
     }
 }

@@ -7,5 +7,6 @@ public class MiaoshaKey extends BasePrefix {
     private MiaoshaKey(int expireSeconds, String prefix) {
         super(expireSeconds, prefix);
     }
-    public static MiaoshaKey isGoodsOver = new MiaoshaKey(3600 * 24 * 10, "go");
+    // 设置成永久存在吧,标记商品减库存失败，秒杀已经结束
+    public static MiaoshaKey isGoodsOver = new MiaoshaKey(0, "isGoodsOver");
 }

@@ -1,5 +1,6 @@
 package com.imooc.miaosha.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.commons.collections4.CollectionUtils;
@@ -17,6 +18,8 @@ import com.imooc.miaosha.domain.MiaoshaUser;
 import com.imooc.miaosha.rabbitmq.MQSender;
 import com.imooc.miaosha.rabbitmq.MiaoshaMessage;
 import com.imooc.miaosha.redis.GoodsKey;
+import com.imooc.miaosha.redis.MiaoshaKey;
+import com.imooc.miaosha.redis.OrderKey;
 import com.imooc.miaosha.redis.RedisService;
 import com.imooc.miaosha.result.CodeMsg;
 import com.imooc.miaosha.result.Result;
@@ -47,6 +50,8 @@ public class MiaoshaController implements InitializingBean {
 
     @Autowired
     private MQSender mqSender;
+
+    private HashMap<Long, Boolean> localOverMap =  new HashMap<Long, Boolean>();
     /*
     * 优化前：QPS：1722
     * 5000*10
@@ -90,11 +95,13 @@ public class MiaoshaController implements InitializingBean {
     /*
     * 优化思路：
     * a.系统初始化，把商品库存数量加载入缓存
-b      .收到请求，redis预减库存，库存不足直接返回，否则进入3
-c      .请求入队，立即返回排队中
-d       .请求出队，生成订单减库存
-e       .客户端轮询，是否秒杀成功
-    * */
+b      * 收到请求，redis预减库存，库存不足直接返回，否则进入3
+c      * 请求入队，立即返回排队中
+d       * .请求出队，生成订单减库存
+e       * .客户端轮询，是否秒杀成功
+        * 优化后QPS：5311.929
+        * 5000*10
+    * * */
     @RequestMapping(value = "/do_miaosha", method = RequestMethod.POST)
     @ResponseBody
     public Result<Integer> doMiaosha(Model model,
@@ -102,19 +109,31 @@ e       .客户端轮询，是否秒杀成功
             // @RequestParam(value = MiaoshaUserService.COOKI_NAME_TOKEN, required = false) String paramToken,
             MiaoshaUser user,
             @RequestParam("goodsId")long goodsId) {
-        model.addAttribute("user", user);
+        // model.addAttribute("user", user);
         if (user == null) {
             return Result.error(CodeMsg.SESSION_ERROR);
         }
-        // 预减库存
-        long stock = redisService.decr(GoodsKey.getMiaoshaGoodsStock, ""+goodsId);
-        if (stock < 0) {
+        //内存标记，减少redis访问
+        boolean over = localOverMap.get(goodsId);
+        if(over) {
             return Result.error(CodeMsg.MIAO_SHA_OVER);
         }
         // 2.判断是否已经秒杀到了,不能重复秒杀
         MiaoshaOrder order = orderService.getMiaoshaOrderByUserIdGoodsId(user.getId(), goodsId);
         if (order != null) {
+            /*
+             * 如果库存只有两个，A连续提交了两次，那redis库存会减为0，但是A的第二次提交会卡在重复秒杀上
+             * 导致第二单不会成功。然后B提交一次，因为redis库存是0所以会告诉他秒杀完了，但是实际上其实还有一个商品，
+             * 只不过没人可以买到了而已。这里感觉可以把预减的库存加回去，或者直接把这个逻辑加到预减库存之前。
+             * */
+            // redisService.incr(GoodsKey.getMiaoshaGoodsStock, ""+goodsId);
             return Result.error(CodeMsg.REPEATE_MIAOSHA);
+        }
+        // 预减库存
+        long stock = redisService.decr(GoodsKey.getMiaoshaGoodsStock, ""+goodsId);
+        if (stock < 0) {
+            localOverMap.put(goodsId, true);
+            return Result.error(CodeMsg.MIAO_SHA_OVER);
         }
         // 入队
         MiaoshaMessage miaoshaMessage = new MiaoshaMessage();
@@ -143,6 +162,24 @@ e       .客户端轮询，是否秒杀成功
          */
 
     }
+
+    /**
+     * orderId：成功
+     * -1：秒杀失败
+     * 0： 排队中
+     * */
+    @RequestMapping(value="/result", method=RequestMethod.GET)
+    @ResponseBody
+    public Result<Long> miaoshaResult(Model model,MiaoshaUser user,
+            @RequestParam("goodsId")long goodsId) {
+        model.addAttribute("user", user);
+        if(user == null) {
+            return Result.error(CodeMsg.SESSION_ERROR);
+        }
+        long result  =miaoshaService.getMiaoshaResult(user.getId(), goodsId);
+        return Result.success(result);
+    }
+
     // 当类implements InitializingBean之后，项目启动之后，会回调这个接口
     // 把秒杀商品库存加入缓存
     @Override
@@ -154,7 +191,28 @@ e       .客户端轮询，是否秒杀成功
         // 如果不为空，加载进缓存里面
         for (GoodsVo goods : goodsList) {
             redisService.set(GoodsKey.getMiaoshaGoodsStock, "" + goods.getId(), goods.getStockCount());
-            // localOverMap.put(goods.getId(), false);
+            if (goods.getStockCount() > 0) {
+                localOverMap.put(goods.getId(), false);
+            } else {
+                localOverMap.put(goods.getId(), true);
+            }
         }
+    }
+    // 重置数据
+    @RequestMapping(value="/reset", method=RequestMethod.GET)
+    @ResponseBody
+    public Result<Boolean> reset(Model model) {
+        List<GoodsVo> goodsList = goodsService.listGoodsVo();
+        for(GoodsVo goods : goodsList) {
+            goods.setStockCount(10);
+            redisService.set(GoodsKey.getMiaoshaGoodsStock, ""+goods.getId(), 10);
+            localOverMap.put(goods.getId(), false);
+        }
+        // 删除用户的订单信息
+        redisService.delete(OrderKey.getMiaoshaOrderByUidGid);
+        // 删除秒杀完毕的信息
+        redisService.delete(MiaoshaKey.isGoodsOver);
+        miaoshaService.reset(goodsList);
+        return Result.success(true);
     }
 }

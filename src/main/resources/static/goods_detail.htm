@@ -89,6 +89,7 @@
 <script>
     function getMiaoshaPath(){
         var goodsId = $("#goodsId").val();
+        var verifyCode = $("#verifyCode").val();
         // 展示加载中
         g_showLoading();
         $.ajax({
@@ -96,7 +97,7 @@
             type:"GET",
             data:{
                 goodsId:goodsId,
-                verifyCode:$("#verifyCode").val()
+                verifyCode:verifyCode
             },
             success:function(data){
                 if(data.code == 0){

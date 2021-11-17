@@ -165,6 +165,19 @@ public class MiaoshaService {
         //输出图片
         return image;
     }
+
+    public boolean checkVerifyCode(MiaoshaUser user, long goodsId, int verifiCode) {
+        if(user == null || goodsId <= 0) {
+            return false;
+        }
+        Integer oldCode = redisService.get(MiaoshaKey.getMiaoshaVerifyCode, user.getId()+","+goodsId, Integer.class);
+        if (oldCode == null || oldCode - verifiCode != 0) {
+            return false;
+        }
+        redisService.delete(MiaoshaKey.getMiaoshaVerifyCode, user.getId()+","+goodsId);
+        return true;
+    }
+
     // 计算表达式结果
     private int calc(String verifyCode) {
         try {

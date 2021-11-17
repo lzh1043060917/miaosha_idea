@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.collections4.CollectionUtils;
@@ -23,6 +24,7 @@ import com.imooc.miaosha.domain.MiaoshaOrder;
 import com.imooc.miaosha.domain.MiaoshaUser;
 import com.imooc.miaosha.rabbitmq.MQSender;
 import com.imooc.miaosha.rabbitmq.MiaoshaMessage;
+import com.imooc.miaosha.redis.AccessKey;
 import com.imooc.miaosha.redis.GoodsKey;
 import com.imooc.miaosha.redis.MiaoshaKey;
 import com.imooc.miaosha.redis.OrderKey;
@@ -212,9 +214,28 @@ e       * .客户端轮询，是否秒杀成功
     @RequestMapping(value="/path", method=RequestMethod.GET)
     @ResponseBody
     public Result<String> getMiaoshaPath(@RequestParam("goodsId")long goodsId,
-            MiaoshaUser user) {
+            MiaoshaUser user,
+            @RequestParam("verifyCode")int verifyCode,
+            HttpServletRequest request) {
         if(user == null) {
             return Result.error(CodeMsg.SESSION_ERROR);
+        }
+        String uri = request.getRequestURI();
+        String key = uri + "_" + user.getId();
+        // 防刷,查询访问的次数,五秒钟之内,某个用户，访问当前url，限制访问5次
+        Integer count = redisService.get(AccessKey.withExpire(5), key, Integer.class);
+        if (count == null) {
+            // 第一次访问，设置初始值
+            redisService.set(AccessKey.withExpire(5), key, 1);
+        } else if (count < 5) {
+            redisService.incr(AccessKey.withExpire(5), key);
+        } else {
+            return Result.error(CodeMsg.ACCESS_LIMIT_REACHED);
+        }
+        // 校验验证码
+        boolean check = miaoshaService.checkVerifyCode(user, goodsId, verifyCode);
+        if (!check) {
+            return Result.error(CodeMsg.REQUEST_ILLEGAL);
         }
         // 生成Path
         String str = miaoshaService.createMiaoshaPath(user, goodsId);

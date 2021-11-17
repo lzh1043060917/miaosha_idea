@@ -1,6 +1,14 @@
 package com.imooc.miaosha.service;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 import java.util.List;
+import java.util.Random;
+
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,6 +36,8 @@ public class MiaoshaService {
     RedisService redisService;
 
     private static final String pathSalt = "abcd";
+
+    private static char[] ops = new char[] {'+', '-', '*'};
 
 
     // 事务操作
@@ -112,5 +122,69 @@ public class MiaoshaService {
         // path的有效期设置成60s，调用这个接口之后很快就会调用秒杀接口，每一个用户的path都可以是不同的
         redisService.set(MiaoshaKey.getMiaoshaPath, "" + user.getId() + "_"+ goodsId, str);
         return str;
+    }
+
+    public BufferedImage createVerifyCode(MiaoshaUser user, long goodsId) {
+        if(user == null || goodsId <= 0) {
+            return null;
+        }
+        int width = 100;
+        int height = 32;
+        //create the image
+        // 内存里的图像
+        BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+        Graphics g = image.getGraphics();
+        // set the background color
+        // 设置背景颜色
+        g.setColor(new Color(0xDCDCDC));
+        // 填充
+        g.fillRect(0, 0, width, height);
+        // draw the border
+        g.setColor(Color.black);
+        // 设置矩形框
+        g.drawRect(0, 0, width - 1, height - 1);
+        // create a random instance to generate the codes
+        Random rdm = new Random();
+        // make some confusion
+        // 生成50个点
+        for (int i = 0; i < 50; i++) {
+            int x = rdm.nextInt(width);
+            int y = rdm.nextInt(height);
+            g.drawOval(x, y, 0, 0);
+        }
+        // generate a random code
+        String verifyCode = generateVerifyCode(rdm);
+        // 设置验证码的颜色与字体
+        g.setColor(new Color(0, 100, 0));
+        g.setFont(new Font("Candara", Font.BOLD, 24));
+        g.drawString(verifyCode, 8, 24);
+        g.dispose();
+        //计算验证码的计算结果，并且把验证码存到redis中
+        int rnd = calc(verifyCode);
+        redisService.set(MiaoshaKey.getMiaoshaVerifyCode, user.getId()+","+goodsId, rnd);
+        //输出图片
+        return image;
+    }
+    // 计算表达式结果
+    private int calc(String verifyCode) {
+        try {
+            ScriptEngineManager scriptEngineManager = new ScriptEngineManager();
+            ScriptEngine engine = scriptEngineManager.getEngineByName("JavaScript");
+            return (Integer)engine.eval(verifyCode);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    private String generateVerifyCode(Random rdm) {
+        // 生成三个数，再随机选择俩运算符号，组成一个表达式
+        int num1 = rdm.nextInt(10);
+        int num2 = rdm.nextInt(10);
+        int num3 = rdm.nextInt(10);
+        char op1 = ops[rdm.nextInt(3)];
+        char op2 = ops[rdm.nextInt(3)];
+        String exp = "" + num1 + op1 + num2 + op2 + num3;
+        return exp;
     }
 }

@@ -1,10 +1,5 @@
 package com.imooc.miaosha.config;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
 import org.springframework.stereotype.Service;
@@ -13,6 +8,7 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
+import com.imooc.miaosha.access.UserContext;
 import com.imooc.miaosha.domain.MiaoshaUser;
 import com.imooc.miaosha.service.MiaoshaUserService;
 
@@ -33,6 +29,7 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
     public Object resolveArgument(MethodParameter methodParameter, ModelAndViewContainer modelAndViewContainer,
             NativeWebRequest nativeWebRequest, WebDataBinderFactory webDataBinderFactory) throws Exception {
         // request与response取出来
+        /*
         HttpServletRequest request = nativeWebRequest.getNativeRequest(HttpServletRequest.class);
         HttpServletResponse response = nativeWebRequest.getNativeResponse(HttpServletResponse.class);
         // 根据参数名获得参数
@@ -45,8 +42,10 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
         // 根据token获取秒杀user对象
         MiaoshaUser user = userService.getByToken(response, token);
         return user;
+         */
+        return UserContext.getUser();
     }
-    // 遍历request里的所有cookie，找到想要的那个
+    /*
     private String getCookieValue(HttpServletRequest request, String cookieName) {
         Cookie[] cookies = request.getCookies();
         // 避免测试的时候报错。应该是测试tolist的时候，user没有值，所以报错了
@@ -60,4 +59,6 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
         }
         return null;
     }
+
+     */
 }

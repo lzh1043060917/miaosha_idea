@@ -20,11 +20,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.imooc.miaosha.access.AccessLimit;
 import com.imooc.miaosha.domain.MiaoshaOrder;
 import com.imooc.miaosha.domain.MiaoshaUser;
 import com.imooc.miaosha.rabbitmq.MQSender;
 import com.imooc.miaosha.rabbitmq.MiaoshaMessage;
-import com.imooc.miaosha.redis.AccessKey;
 import com.imooc.miaosha.redis.GoodsKey;
 import com.imooc.miaosha.redis.MiaoshaKey;
 import com.imooc.miaosha.redis.OrderKey;
@@ -181,6 +181,7 @@ e       * .客户端轮询，是否秒杀成功
      * -1：秒杀失败
      * 0： 排队中
      * */
+    // @AccessLimit(second = 5,maxCount = 10, neeedLogin = true)
     @RequestMapping(value="/result", method=RequestMethod.GET)
     @ResponseBody
     public Result<Long> miaoshaResult(Model model,MiaoshaUser user,
@@ -211,17 +212,20 @@ e       * .客户端轮询，是否秒杀成功
         return Result.success(true);
     }
     // 获取秒杀地址
+    // 5秒之中限定5个请求，是否需要登录
+    @AccessLimit(second = 5,maxCount = 5, neeedLogin = true)
     @RequestMapping(value="/path", method=RequestMethod.GET)
     @ResponseBody
     public Result<String> getMiaoshaPath(@RequestParam("goodsId")long goodsId,
             MiaoshaUser user,
-            @RequestParam("verifyCode")int verifyCode,
+            @RequestParam(value = "verifyCode", defaultValue="0")int verifyCode,
             HttpServletRequest request) {
         if(user == null) {
             return Result.error(CodeMsg.SESSION_ERROR);
         }
-        String uri = request.getRequestURI();
-        String key = uri + "_" + user.getId();
+        // String uri = request.getRequestURI();
+        // String key = uri + "_" + user.getId();
+        /*
         // 防刷,查询访问的次数,五秒钟之内,某个用户，访问当前url，限制访问5次
         Integer count = redisService.get(AccessKey.withExpire(5), key, Integer.class);
         if (count == null) {
@@ -232,6 +236,7 @@ e       * .客户端轮询，是否秒杀成功
         } else {
             return Result.error(CodeMsg.ACCESS_LIMIT_REACHED);
         }
+         */
         // 校验验证码
         boolean check = miaoshaService.checkVerifyCode(user, goodsId, verifyCode);
         if (!check) {

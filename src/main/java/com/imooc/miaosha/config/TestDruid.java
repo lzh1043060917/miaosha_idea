@@ -24,6 +24,8 @@ public class TestDruid {
             System.out.println("dataSource = "+dataSource);
             System.out.println("maxActive=" + druidDataSource.getMaxActive());
             System.out.println("maxWait=" + druidDataSource.getMaxWait());
+            System.out.println("getMinEvictableIdleTimeMillis=" + druidDataSource.getMinEvictableIdleTimeMillis());
+            System.out.println("getTimeBetweenEvictionRunsMillis=" + druidDataSource.getTimeBetweenEvictionRunsMillis());
             // System.out.println("conn = "+conn);
             return "success";
         } catch (SQLException e) {

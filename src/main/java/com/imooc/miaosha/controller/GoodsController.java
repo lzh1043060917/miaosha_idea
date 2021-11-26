@@ -73,6 +73,8 @@ public class GoodsController {
         if (user == null) {
             return "login";
         }*/
+        // 会在另一个redis用例里设置一个kv
+        // redisService.testSet();
         // 取缓存
         String html = redisService.get(GoodsKey.getGoodsList, "", String.class);
         if (!StringUtils.isEmpty(html)) {

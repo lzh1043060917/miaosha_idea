@@ -21,6 +21,21 @@ public class RedisService {
     @Qualifier("jedisPoolFactory")
     private JedisPool jedisPool;
 
+    @Autowired
+    @Qualifier("jedisPool2Factory")
+    private JedisPool jedisPool2;
+
+    public boolean testSet() {
+        Jedis jedis = null;
+        try {
+            jedis =  jedisPool2.getResource();
+            jedis.setex("test", 120, "success");
+            return true;
+        } finally {
+            returnToPool(jedis);
+        }
+    }
+
     public <T> T get(KeyPrefix prefix, String key, Class<T> clazz) {
         Jedis jedis = null;
         try {

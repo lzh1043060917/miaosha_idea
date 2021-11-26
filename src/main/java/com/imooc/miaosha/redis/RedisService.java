@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
@@ -16,7 +17,8 @@ import redis.clients.jedis.ScanResult;
 @Service
 public class RedisService {
 
-    @Autowired
+    @Autowired // 可以连接两个redis实例了，不过没实际测试，应该可以。
+    @Qualifier("jedisPoolFactory")
     private JedisPool jedisPool;
 
     public <T> T get(KeyPrefix prefix, String key, Class<T> clazz) {

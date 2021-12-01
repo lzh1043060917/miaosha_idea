@@ -1,5 +1,6 @@
 package com.imooc.miaosha.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -149,6 +150,7 @@ public class GoodsController {
     }
 
     // 跳转到商品详情页，页面缓存
+    /*
     @RequestMapping(value="/to_detail2/{goodsId}", produces = "text/html")
     @ResponseBody
     public String detail2(Model model,MiaoshaUser user,
@@ -203,6 +205,15 @@ public class GoodsController {
         // 返回html页面
         return html;
         // return "goods_detail";
+    }
+     */
+
+    public static void main(String[] args) {
+        // 初始化 Date 对象
+        Date date = new Date();
+
+        // 使用 toString() 函数显示日期时间
+        System.out.println(date.toString());
     }
 
 }
